@@ -1,43 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-
+    <title>1leet.com</title>
+    <link href="https://static.rutracker.cc/templates/v1/min/d22fb62054457f5e9bb5e9c0669e7250.all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
-
 <body>
-    <aside class="sidebar">
-        <img src="avatar.jpg" alt="Profile" class="profile-img">
-        <div class="bio-header">
-            <h1>Mathew</h1>
-            <span id="typing-text" class="typing-container"><span class="cursor"></span></span>
+<div id="body_container">
+    <div id="page_container">
+        <div id="page_header" class="hide-for-print">
+            <div id="main-nav" class="site-nav clearfix">
+                <ul class="inlined middot-separated floatL">
+                    <li><a href="index.html"><b>Home</b></a></li>
+                    <li><a href="readme.html"><b>README</b></a></li>
+                    <li><a href="https://github.com/SynapLink" target="_blank"><b>GitHub</b></a></li>
+                    <li><a href="https://t.me/damniewa" target="_blank"><b>Telegram</b></a></li>
+                </ul>
+            </div>
         </div>
-        <div class="bio-details">
-            <p class="muted"><strong>Location:</strong> Up in the Sky</p>
-            <p class="muted"><strong>Group:</strong> SynapLink</p>
-        </div>
-        <div style="margin-top:1rem; text-align: center;">
-            <a href="mailto:m@1leet.com" class="btn">Contact</a>
-        </div>
-    </aside>
 
-    <main class="main-container">
-        <div id="main-menu">
-            <a href="readme.html" class="menu-btn">README.md</a>
-            <a href="https://github.com/SynapLink" class="menu-btn" target="_blank">SynapLink GitHub</a>
-            <a href="https://t.me/damniewa" class="menu-btn" target="_blank">Telegram</a>
-            <a href="https://www.google.com/search?q=buy+new+phone+or+pc+idk" class="menu-btn" target="_blank">ЛАГАЕТ САЙТ >> ИДИ НАХУЙ</a>
-        </div>
-    </main>
+        <div id="page_content">
+            <table style="width: 100%; border: none;">
+                <tr>
+                    <td id="main_content">
+                        <div id="main_content_wrap">
+                            <h1 class="pagetitle"><span class="normal">Profile:</span> Mathew</h1>
+                            <div class="nav">
+                                <p class="floatL"><a href="index.html">Home</a></p>
+                                <div class="clear"></div>
+                            </div>
 
+                            <table class="user_profile bordered w100">
+                                <tr>
+                                    <th colspan="2" class="thHead">Profile</th>
+                                </tr>
+                                <tr>
+                                    <td class="row1 vTop tCenter w30" style="padding: 2px 0 8px;">
+                                        <div id="avatar-img" class="mrg_4 med">
+                                            <img src="avatar.jpg" alt="Avatar" style="max-width: 120px; border: 0;">
+                                        </div>
+                                        <div class="med mrg_4">Location: Up in the Sky</div>
+                                        <div class="med mrg_4">Group: SynapLink</div>
+                                        <h4 class="cat border bw_TB">Contact</h4>
+                                        <div class="spacer_4"></div>
+                                        <table id="user-contacts" class="borderless wAuto bCenter">
+                                            <tr>
+                                                <th>Mail:</th>
+                                                <td><a class="txtb" href="mailto:m@bottleneck.cc">m@bottleneck.cc</a></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td class="row1 w70 vTop" style="padding: 2px 6px 8px;">
+                                        <div class="spacer_4"></div>
+                                        <table class="user_details borderless w100">
+                                            <tr>
+                                                <th>From:</th>
+                                                <td class="med">
+                                                    <img src="flags/145.gif" class="poster-flag" alt="country" title="Saudi Arabia">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Links:</th>
+                                                <td class="med">
+                                                    <ul class="inlined middot-separated">
+                                                        <li><a href="readme.html"><b>README.md</b></a></li>
+                                                        <li><a href="https://github.com/SynapLink" target="_blank"><b>SynapLink GitHub</b></a></li>
+                                                        <li><a href="https://t.me/damniewa" target="_blank"><b>Telegram</b></a></li>
+                                                        <li><a href="https://www.google.com/search?q=buy+new+phone+or+pc+idk" target="_blank">ЛАГАЕТ САЙТ &gt;&gt; ИДИ НАХУЙ</a></li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="page_footer" class="hide-for-print">
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
 </body>
-
-
 </html>
-
-

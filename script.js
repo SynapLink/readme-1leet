@@ -5,7 +5,7 @@ function renderEmbeddedReadme() {
     const mdEl = document.getElementById('readme-md');
     if (!container) return console.error('Content container not found');
     if (!mdEl) {
-        container.innerHTML = '<p style="color: #d03e3e;">Embedded README not found.</p>';
+        container.innerHTML = '<p class="error">Embedded README not found.</p>';
         return;
     }
 
@@ -16,7 +16,7 @@ function renderEmbeddedReadme() {
         enhanceRenderedMarkdown(container);
     } catch (err) {
         console.error('Error rendering markdown:', err);
-        container.innerHTML = '<p style="color: #d03e3e;">Error rendering markdown.</p>';
+        container.innerHTML = '<p class="error">Error rendering markdown.</p>';
     }
 }
 
@@ -137,197 +137,19 @@ function processHighlights(container) {
     nodes.forEach(replaceHighlightsInTextNode);
 }
 
-function applyJitterEffect() {
-    const targets = document.querySelectorAll('.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6, .bio-header h1, .bio-header span');
-
-    targets.forEach(el => {
-        if (el.querySelector('.char-jitter')) return;
-
-        const text = el.textContent;
-        el.innerHTML = '';
-
-        text.split('').forEach(char => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            span.className = 'char-jitter';
-
-            if (char.trim() === '') {
-                span.style.width = '0.3em';
-            } else {
-                const rotation = (Math.random() * 6 - 3).toFixed(1);
-                span.style.transform = `rotate(${rotation}deg)`;
-                span.style.display = 'inline-block';
-            }
-
-            el.appendChild(span);
-        });
-    });
-}
-
-function applyRussianFont() {
-    function containsCyrillic(text) {
-        return /[\u0400-\u04FF]/.test(text);
-    }
-
-    function wrapCyrillicText(node) {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const text = node.textContent;
-            if (containsCyrillic(text)) {
-                const fragment = document.createDocumentFragment();
-                let lastIndex = 0;
-                let match;
-
-                const cyrillicRegex = /[\u0400-\u04FF]+/g;
-
-                while ((match = cyrillicRegex.exec(text)) !== null) {
-                    if (match.index > lastIndex) {
-                        fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
-                    }
-                    const span = document.createElement('span');
-                    span.className = 'russian-text';
-                    span.textContent = match[0];
-                    fragment.appendChild(span);
-                    lastIndex = match.index + match[0].length;
-                }
-                if (lastIndex < text.length) {
-                    fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
-                }
-                node.parentNode.replaceChild(fragment, node);
-            }
-        } else if (node.nodeType === Node.ELEMENT_NODE) {
-            const tagName = node.tagName.toLowerCase();
-            if (tagName !== 'SCRIPT' && tagName !== 'STYLE' && tagName !== 'CODE' && tagName !== 'PRE') {
-                const children = Array.from(node.childNodes);
-                children.forEach(wrapCyrillicText);
-            }
-        }
-    }
-
-    const markdownBody = document.querySelector('.markdown-body');
-    if (markdownBody) {
-        wrapCyrillicText(markdownBody);
-    }
-
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebar) {
-        wrapCyrillicText(sidebar);
-    }
-}
-
 function enhanceRenderedMarkdown(container) {
     ensureHeadingIds(container);
     generateTOC(container);
     processAdmonitions(container);
     processHighlights(container);
-    applyJitterEffect();
-    applyRussianFont();
-}
-
-const prefix = "I am a: ";
-const roles = ["developer", "OS enthusiast", "designer", "talkative person"];
-let roleIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-let typeSpeed = 100;
-
-function typeWriter() {
-    const typingElement = document.getElementById("typing-text");
-
-    if (!typingElement) return;
-
-    const currentRole = roles[roleIndex];
-    const fullText = prefix + currentRole;
-
-    if (isDeleting) {
-        if (charIndex > prefix.length) {
-            typingElement.innerHTML = prefix + currentRole.substring(0, charIndex - prefix.length - 1) + '<span class="cursor"></span>';
-            charIndex--;
-            typeSpeed = 50;
-        } else {
-            isDeleting = false;
-            roleIndex = (roleIndex + 1) % roles.length;
-            charIndex = prefix.length;
-            typeSpeed = 500;
-        }
-    } else {
-        const roleCharIndex = charIndex - prefix.length;
-        typingElement.innerHTML = prefix + currentRole.substring(0, roleCharIndex + 1) + '<span class="cursor"></span>';
-        charIndex++;
-        typeSpeed = 100;
-    }
-
-    if (!isDeleting && charIndex === fullText.length) {
-        isDeleting = true;
-        typeSpeed = 2000;
-    }
-
-    setTimeout(typeWriter, typeSpeed);
-}
-
-function initFlashlight() {
-    const btn = document.createElement('button');
-    btn.className = 'toggle-lights-btn';
-    btn.innerHTML = '💡';
-    btn.title = 'Toggle Lights';
-    document.body.appendChild(btn);
-
-    btn.addEventListener('click', () => {
-        document.body.classList.toggle('lights-off');
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (document.body.classList.contains('lights-off')) {
-            document.body.style.setProperty('--cursor-x', e.clientX + 'px');
-            document.body.style.setProperty('--cursor-y', e.clientY + 'px');
-        }
-    });
-}
-
-function initCustomCursor() {
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    document.body.appendChild(cursor);
-
-    const clickableSelectors = 'a, button, .btn, .menu-btn, .toggle-lights-btn, [onclick], input[type="button"], input[type="submit"], input[type="checkbox"], input[type="radio"], select, textarea, [role="button"]';
-    
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        
-        const target = e.target;
-        const isClickable = target.matches(clickableSelectors) || 
-                           target.closest(clickableSelectors) ||
-                           window.getComputedStyle(target).cursor === 'pointer' ||
-                           target.style.cursor === 'pointer';
-        
-        if (isClickable) {
-            cursor.classList.add('pointer');
-        } else {
-            cursor.classList.remove('pointer');
-        }
-    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const typingElement = document.getElementById("typing-text");
-    if (typingElement) {
-        typingElement.innerHTML = prefix + '<span class="cursor"></span>';
-        charIndex = prefix.length;
-    }
-    
-    initCustomCursor();
-    typeWriter();
-    initFlashlight();
-    applyJitterEffect();
-
     if (document.getElementById('readme-md')) {
         renderEmbeddedReadme();
-
         const content = document.getElementById('content');
         if (content) {
             content.style.display = 'block';
         }
     }
-
-    applyRussianFont();
 });

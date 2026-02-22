@@ -12,3 +12,5 @@ desktop.ini
 
 # Optional: uncomment to exclude reference (PHP) from repo
 reference/
+
+download-smiles.ps1
